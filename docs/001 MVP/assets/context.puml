@@ -1,0 +1,26 @@
+#+BEGIN_SRC plantuml :file diagram.png
+@startuml 
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+
+title Контекстная диаграмма платформы
+
+Person(p_owner, "Владелец бизнеса", "Человек использующий платформу для управления и развития своего бизнеса")
+Person(p_employee, "Сотрудник", "Человек использующий платформу для исполнения своих трудовых задач")
+Person_Ext(p_supplier, "Поставщик", "Поставщики обеспечивают бизнес необходимыми материалами")
+Person_Ext(p_freelancer, "Подрядчик", "Подрядчики выполняют заказы, например, пошив штор")
+
+System(s_main, "Платформа OpenERP", "Заказы - Товары и услуги - Склады - Персонал")
+
+System_Ext(se_old, "Система ведения заказов", "Здесь бизнес ведет список продаж")
+System_Ext(se_warehouse, "Система складского учета", "Здесь бизнес ведет складской учет, инвентаризацию")
+
+Rel(p_owner, s_main, "Управление бизнесом, ввод и просмотр данных")
+Rel(p_employee, s_main, "Ввод и просмотр данных")
+Rel(p_supplier, s_main, "Поставки на склад")
+Rel(p_freelancer, s_main, "Исполнение заказов")
+
+Rel(se_old, s_main, "Миграция данных")
+Rel(se_warehouse, s_main, "Миграция данных")
+
+@enduml
+#+END_SRC
