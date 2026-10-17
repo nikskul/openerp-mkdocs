@@ -83,4 +83,4 @@ OpenERP создается из идеи развития полноценных
 
 ## Контекстная диаграмма
 
-![Context diagram](./assets/context.png)
+![Context diagram](./assets/context.svg)
