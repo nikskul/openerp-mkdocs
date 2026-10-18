@@ -1,0 +1,39 @@
+#+BEGIN_SRC plantuml
+@startuml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Context.puml
+
+LAYOUT_LANDSCAPE()
+
+title Контекстная диаграмма — OpenERP
+
+Enterprise_Boundary(b_enterprise, "Предприятие — салон штор") {
+  Person(p_owner, "Владелец предприятия", "Организует работу, контролирует заказы и принимает управленческие решения")
+  Person(p_employee, "Сотрудник", "Выполняет рабочие задачи и ведёт операционный учёт")
+  System_Ext(se_paper, "Бумажный учёт", "Тетрадь для записи заказов и сведений о товарах")
+  System_Ext(se_communication, "Каналы коммуникации", "Телефон, личное общение, мессенджеры и соцсети")
+  System_Ext(se_bank, "Банковское оборудование", "Приём оплаты через банковскую кассу или терминал")
+}
+
+System(s_main, "OpenERP", "Платформа для учёта ресурсов, управления заказами и контроля операционной деятельности")
+Person_Ext(p_dev, "Разработчик / специалист по внедрению", "Разрабатывает, внедряет, настраивает и сопровождает платформу")
+Person_Ext(p_client, "Клиент предприятия", "Обращается за товарами и услугами и согласует заказ")
+Person_Ext(p_supplier, "Поставщик", "Поставляет товары и материалы для предприятия")
+Person_Ext(p_contractor, "Подрядчик", "Выполняет порученные работы в рамках заказа")
+
+Lay_R(p_owner, p_employee)
+Lay_D(p_employee, se_communication)
+Lay_R(se_paper, se_bank)
+
+Rel_D(p_owner, s_main, "Управляет работой предприятия,\nпросматривает данные и показатели")
+Rel_D(p_employee, s_main, "Регистрирует заказы,\nобновляет сведения об их выполнении")
+Rel_L(p_dev, s_main, "Разрабатывает, внедряет\nи сопровождает платформу")
+
+Rel_R(p_client, p_owner, "Обращается и согласует заказ")
+Rel_R(p_supplier, p_owner, "Согласует условия поставки")
+Rel_R(p_contractor, p_owner, "Получает задания и передаёт результаты работ")
+
+Rel_D(p_owner, se_paper, "Фиксирует сведения\nо заказах и товарах")
+Rel_D(p_employee, se_communication, "Принимает обращения\nи общается с клиентами")
+Rel_D(p_owner, se_bank, "Организует или контролирует приём оплаты")
+@enduml
+#+END_SRC

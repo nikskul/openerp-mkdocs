@@ -1,0 +1,29 @@
+@startuml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Context.puml
+LAYOUT_LANDSCAPE()
+title Контекстная диаграмма — OpenERP (to-be)
+
+Enterprise_Boundary(b_enterprise, "Предприятие — салон штор") {
+  Person(p_owner, "Владелец", "Управляет деятельностью и принимает решения")
+  Person(p_employee, "Сотрудник", "Выполняет операционный учёт")
+  System(s_main, "OpenERP", "Учёт ресурсов, управление заказами и контроль операций")
+  System_Ext(se_communication, "Каналы коммуникации", "Телефон, мессенджеры, соцсети")
+  System_Ext(se_bank, "Банковское оборудование", "Приём оплаты")
+}
+
+Person_Ext(p_dev, "Разработчик / внедрение", "Настраивает и сопровождает платформу")
+Person_Ext(p_client, "Клиент", "Обращается за товарами и услугами")
+Person_Ext(p_supplier, "Поставщик", "Поставляет товары и материалы")
+Person_Ext(p_contractor, "Подрядчик", "Выполняет отдельные работы")
+
+Rel(p_owner, s_main, "Управляет, контролирует, анализирует")
+Rel(p_employee, s_main, "Регистрирует заказы и операции")
+Rel_L(p_dev, s_main, "Внедряет, настраивает, сопровождает")
+
+Rel(p_client, p_owner, "Обращается и согласует заказ")
+Rel(p_supplier, p_owner, "Согласует поставки")
+Rel(p_contractor, p_owner, "Получает задания и сдаёт результаты")
+
+Rel(p_employee, se_communication, "Принимает обращения\nи регистрирует в OpenERP")
+Rel(p_owner, se_bank, "Контролирует приём оплаты")
+@enduml
